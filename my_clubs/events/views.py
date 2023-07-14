@@ -2,6 +2,7 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from .forms import VenueForm
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime("%B")):
@@ -10,3 +11,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime("%B"))
     html_cal = HTMLCalendar().formatmonth(year, mont_num)
 
     return render(request, "events/home.html", {"html_cal": html_cal})
+
+def add_venue(request):
+    venue_form = VenueForm
+    return render(request,"events/events_list.html",{"form":venue_form})
