@@ -1,0 +1,9 @@
+
+@font-face {
+  font-family: "myFont";
+  src: url("../fonts/Montserrat-Medium.ttf");
+}
+
+*,*::after,*::before{
+    font-family: "myFont";
+}
