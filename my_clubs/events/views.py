@@ -3,6 +3,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .forms import VenueForm
+from django.http import HttpResponseRedirect
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime("%B")):
@@ -12,6 +13,21 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime("%B"))
 
     return render(request, "events/home.html", {"html_cal": html_cal})
 
+
 def add_venue(request):
-    venue_form = VenueForm
-    return render(request,"events/events_list.html",{"form":venue_form})
+    submitted = False
+    if request.methpd == "POST":
+        venue_form = VenueForm(request.POST)
+        if venue_form.is_valid():
+            venue_form.save()
+            return HttpResponseRedirect(
+                "/add-venue?submitted=True",
+            )
+        # else: 
+        #     return HttpResponseRedirect(
+        #         "/add-venue",
+        #     )
+    else: 
+        venue_form = VenueForm
+        if "submitted" in request.GET:
+            
