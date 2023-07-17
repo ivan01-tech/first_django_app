@@ -11,15 +11,26 @@
 
   <body class="flex flex-col items-center text-xl min-h-screen justify-between">
     <header
-      class="flex bg-white items-center border-b border-gray-200 shadow-md px-4 py-2 w-full"
+      class="flex gap-4 bg-white items-center border-b border-gray-200 shadow-md px-4 py-2 w-full"
     >
-      <h1 class="text-3xl flex-1">
-        <a href="{% url 'home' %} "> MyEvents </a>
-      </h1>
+      <div class="flex-1 flex gap-4 items-center">
+        <h1 class="text-3xl">
+          <a href="{% url 'home' %} "> MyEvents </a>
+        </h1>
+        <form action="{% url 'search' %}" method="post" class="flex-1">
+          {% csrf_token %}
+          <input
+            type="text"
+            name="search"
+            class="bg-slate-100 border border-gray-400 w-full py-1 px-2"
+            placeholder="Search for venues here..."
+          />
+        </form>
+      </div>
       <nav class="flex gap-3 items-center text-[14px]">
         <a href=" {% url 'events' %}">Events</a>
+        <a href=" {% url 'venues_list' %}">Venues</a>
         <a href=" {% url 'add-venue' %}">Add Events</a>
-        {% comment %} <a href=" {% url 'cal' year month %}">Calendar</a> {% endcomment %}
         <button
           class="py-2 px-2 text-xl bg-teal-600 text-white font-bold rounded border border-gray-600"
         >
@@ -52,7 +63,7 @@
         </li>
         <li>
           <a href="" class="text-teal-300 hover:text-teal-600"
-            >Privacity Policy</a
+            >Privacy Policy</a
           >
         </li>
         <li>

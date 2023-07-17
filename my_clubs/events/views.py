@@ -2,8 +2,29 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from .models import Venue
 from .forms import VenueForm
 from django.http import HttpResponseRedirect
+
+
+def list_venue(request):
+    venues = Venue.objects.all()
+    return render(request, "events/venue_list.html", {"venues": venues})
+
+
+def search(request):
+    if request.method == "POST":
+        search_term = request.POST["search"]
+        venues = Venue.objects.filter(name__contains=search_term)
+        print("venues : ",venues)
+    return render(
+        request, "events/search.html", {"venues": venues, "search_term": search_term}
+    )
+
+
+def venue_item(request, venue_id):
+    venue = Venue.objects.get(id=venue_id)
+    return render(request, "events/venue_item.html", {"venue": venue})
 
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime("%B")):
@@ -16,18 +37,18 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime("%B"))
 
 def add_venue(request):
     submitted = False
-    if request.methpd == "POST":
+    if request.method == "POST":
+        submitted = False
         venue_form = VenueForm(request.POST)
         if venue_form.is_valid():
             venue_form.save()
             return HttpResponseRedirect(
-                "/add-venue?submitted=True",
+                "/events/add_venue?submitted=True",
             )
-        # else: 
-        #     return HttpResponseRedirect(
-        #         "/add-venue",
-        #     )
-    else: 
+    else:
         venue_form = VenueForm
         if "submitted" in request.GET:
-            
+            submitted = True
+    return render(
+        request, "events/add_venue.html", {"submitted": True, "form": venue_form}
+    )
