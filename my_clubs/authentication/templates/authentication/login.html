@@ -1,0 +1,9 @@
+{% extends "events/base.html" %} {% block content %} {{message}}
+<form action="" method="post">
+<h2>Login</h2>
+  {% csrf_token %}
+  <input type="text" name="username" placeholder="username" />
+  <input type="password" name="password" placeholder="password" />
+  <button type="submit">Soumettre</button>
+</form>
+{% endblock content %}

@@ -2,6 +2,9 @@ from django.contrib import admin
 import django.db
 from .models import Event, MyClubsUser, Venue
 # this helps to personalyse django admin interface
+#email backend... conf
+#novalidate attr form
+# error form
 
 # admin.site.register(Venue)
 admin.site.register(MyClubsUser)
