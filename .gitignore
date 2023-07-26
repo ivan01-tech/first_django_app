@@ -1,14 +1,12 @@
-# Django 
+# Django #
 *.log
 *.pot
 *.pyc
-__pycache__
+./*/__pycache__
 db.sqlite3
 media
-./club_env
-club_env
-club_env
-# Backup files 
+
+# Backup files # 
 *.bak 
 
 # If you are using PyCharm # 
